@@ -56,6 +56,7 @@ dependencies {
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
 
+
 /*    // Dependency Injection - Hilt
     implementation( "com.google.dagger:hilt-android:2.44")
     kapt ("com.google.dagger:hilt-compiler:2.44")
@@ -79,7 +80,7 @@ dependencies {
     implementation (libs.material.v140)*/
 
 
-    implementation ("com.google.android.material:material:1.9.0")
+    implementation ("com.google.android.material:material:1.12.0")
     // ConstraintLayout
     implementation("androidx.constraintlayout:constraintlayout:2.1.4")
 

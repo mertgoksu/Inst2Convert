@@ -6,6 +6,8 @@ import android.content.Context
 import android.content.Intent
 import android.net.Uri
 import android.os.Environment
+import android.os.Handler
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -47,23 +49,42 @@ class MainFragment : BaseFragment<FragmentMainBinding, MainViewModel>(R.layout.f
         }
 
         binding.convertButton.setOnClickListener {
+            viewProgress()
+            disableButtons()
             val url = binding.urlInput.text.toString()
+
             if (url.isNotEmpty()) {
-                viewProgress()
-                disableButtons()
+
+
+                viewModel.clearVideoUrl()
+                viewModel.videoUrl.removeObservers(viewLifecycleOwner)
 
                 viewModel.convertUrl(url)
 
+
                 viewModel.videoUrl.observe(viewLifecycleOwner) { videoUrl ->
-                    goneProgress()
-                    enableButtons()
-                    videoUrl?.let { showPopup(it) }
+
+                    if (videoUrl != null) {
+                        goneProgress()
+                        enableButtons()
+                        showPopup(videoUrl)
+                    } else {
+                        Handler().postDelayed({
+                            if (viewModel.videoUrl.value == null) {
+                                goneProgress()
+                                enableButtons()
+                                Toast.makeText(context, "Request timed out", Toast.LENGTH_SHORT).show()
+                            }
+                        }, 10000) // 10,000 milliseconds = 10 seconds
+                    }
                 }
             } else {
-                Toast.makeText(context, "Please enter an URL", Toast.LENGTH_SHORT).show()
-                viewModel.setError("Please enter an URL")
+                Toast.makeText(context, "Lütfen geçerli bir URL girin", Toast.LENGTH_SHORT).show()
             }
         }
+
+
+
 
 
         binding.clearButton.setOnClickListener {
@@ -81,11 +102,19 @@ class MainFragment : BaseFragment<FragmentMainBinding, MainViewModel>(R.layout.f
         binding.checkServerItemsContainer.quickBaseButtonWhite().setCustomButtonBackground(R.drawable.bg_general_buttons_white_with_stroke)
     }
 
+    private var isPopupShown = false
+
     private fun observeViewModel() {
         viewModel.videoUrl.observe(viewLifecycleOwner) { videoUrl ->
-            videoUrl?.let { showPopup(it) }
+            videoUrl?.let {
+                if (!isPopupShown) {
+                    showPopup(it)
+                    isPopupShown = true // Popup gösterildi, flag'i true yap
+                }
+            }
         }
     }
+
 
     private fun disableButtons(){
         binding.wakeButton.disableButton()
@@ -153,7 +182,6 @@ class MainFragment : BaseFragment<FragmentMainBinding, MainViewModel>(R.layout.f
         })
 
     }
-
 
     private fun showPopup(videoUrl: String) {
         val options = arrayOf("Watch", "Download")

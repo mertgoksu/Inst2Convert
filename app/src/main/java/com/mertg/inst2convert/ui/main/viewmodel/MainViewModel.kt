@@ -11,8 +11,9 @@ import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.awaitResponse
 
 class MainViewModel : BaseViewModel() {
-    private val _videoUrl = MutableLiveData<String>()
-    val videoUrl: LiveData<String> get() = _videoUrl
+
+    private val _videoUrl = MutableLiveData<String?>()
+    val videoUrl: LiveData<String?> get() = _videoUrl
 
     private val retrofit = Retrofit.Builder()
         .baseUrl("https://charm-chemical-banjo.glitch.me")
@@ -20,6 +21,10 @@ class MainViewModel : BaseViewModel() {
         .build()
 
     private val api = retrofit.create(InstApiService::class.java)
+
+    fun clearVideoUrl() {
+        _videoUrl.value = null // Video URL'yi sıfırla
+    }
 
     fun convertUrl(url: String) {
         setLoading(true)
