@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="primaryColor">#6200EE</color>
+    <color name="primaryDarkColor">#3700B3</color>
+    <color name="accentColor">#03DAC5</color>
+    <color name="backgroundColor">#F5F5F5</color>
+    <color name="textColor">#FFFFFF</color>
+
+
+    <color name="black">#FF000000</color>
+    <color name="white">#FFFFFFFF</color>
+
+    <!-- Gri ve Beyaz Tonları -->
+    <color name="gray_900">#212121</color>
+    <color name="gray_700">#424242</color>
+    <color name="gray_500">#9E9E9E</color>
+    <color name="off_white">#F5F5F5</color>
+
+
+    <color name="purple_200">#FFBB86FC</color>
+    <color name="purple_500">#2A2A2A</color>
+    <color name="purple_700">#2A2A2A</color>
+    <color name="teal_200">#FF03DAC5</color>
+    <color name="teal_700">#FF018786</color>
+    <color name="btn_enabled">#2A2A2A</color>
+    <color name="btn_disabled">#D3D1E1</color>
+    <color name="general_textview_color">#2A2A2A</color>
+    <color name="list_item_bg">#f7f6fb</color>
+    <color name="textview_green">#00af54</color>
+    <color name="btn_purple">#7f52f4</color>
+    <color name="qr_green">#3BCE17</color>
+    <color name="green">#34C759</color>
+    <color name="green_2">#22B45F</color>
+
+    <color name="custom_text_input">#F2F2F6</color>
+    <color name="custom_text_input_error">#FF0000</color>
+    <color name="custom_text_input_text_color">#A7A3C3</color>
+    <color name="transaction_gradient_2">#8E49F9</color>
+    <color name="transaction_gradient_1">#5523F0</color>
+    <color name="white_18">#2EFFFFFF</color>
+    <color name="summary_text_color">#908cb4</color>
+    <color name="summary_text_color_2">#A7A3BF</color>
+    <color name="campaign_filter_color">#4e4788</color>
+    <color name="campaign_my_special">#D7F032</color>
+    <color name="button_blue">#5523f0</color>
+    <color name="transparent">#00000000</color>
+    <color name="toast_error">#F84C4C</color>
+    <color name="toast_success">#14C86A</color>
+    <color name="colorTransparent">#43000000</color>
+    <color name="alpha_0_5_black">#80000000</color>
+    <color name="alpha_0_9_black">#E6000000</color>
+    <color name="grey">#c8c5da</color>
+    <color name="alpha_white">#FFFFFF</color>
+    <color name="purple_text">#7836FF</color>
+    <color name="background_grey">#221c581a</color>
+    <color name="orange_text">#FBBC05</color>
+    <color name="orange_button">#FF5722</color>
+    <color name="new_background_grey">#EBEBEB</color>
+    <color name="address_un_select">#C5C5C5</color>
+    <color name="button_red_color">#FF2626</color>
+
+
+    <color name="gray_license">#868686</color>
+    <color name="grey_license_bg">#F2F2F6</color>
+    <color name="purple_white">#A7A4C1</color>
+
+    <color name="orenge_1">#FD3601</color>
+    <color name="orenge_2">#E03C31</color>
+    <color name="orenge_3">#FF6262</color>
+    <color name="gray_1">#797979</color>
+    <color name="gray_2">#C1C1C1</color>
+    <color name="gray_3">#80797979</color>
+    <color name="gray_4">#757575</color>
+    <color name="gray_5">#C7C5D8</color>
+    <color name="gray_6">#646464</color>
+    <color name="gray_7">#666666</color>
+    <color name="gray_8">#818181</color>
+    <color name="gray_9">#E5E5EA</color>
+    <color name="gray_10">#6A6A6A</color>
+    <color name="gray_11">#4D3C3C43</color>
+    <color name="gray_12">#D9D9D9</color>
+    <color name="gray_13">#5B5B5B</color>
+    <color name="gray_14">#535353</color>
+    <color name="gray_15">#959595</color>
+    <color name="gray_16">#ABABAB</color>
+    <color name="gray_17">#817B7B</color>
+    <color name="gray_18">#828282</color>
+    <color name="gray_19">#5E5E5E</color>
+    <color name="gray_20">#615B5B</color>
+    <color name="gray_21">#4D3C434D</color>
+    <color name="gray_22">#525252</color>
+    <color name="gray_23_alpha_50">#80525252</color>
+    <color name="gray_23">#C4C4C4</color>
+    <color name="gray_24">#C0C0C0</color>
+    <color name="gray_25">#F0F0F0</color>
+    <color name="gray_26">#706A6A</color>
+    <color name="gray_27">#9F9F9F</color>
+    <color name="gray_28">#BABBBC</color>
+
+    <color name="gray_alpha_55_1">#9F9F9F80</color>
+
+    <color name="black_1">#232323</color>
+    <color name="black_2">#2F2F2F</color>
+    <color name="green_1">#02BE59</color>
+    <color name="red_1">#DE3C2F</color>
+    <color name="red_2">#D77575</color>
+
+    <color name="white_alpha_52">#85FFFFFF</color>
+    <color name="white_1">#E7E7E7</color>
+    <color name="white_2">#FAFAFA</color>
+    <color name="white_alpha_90">#E6FFFFFF</color>
+
+    <color name="white_3">#F8F8F8</color>
+
+    <color name="blue">#5F5EB5</color>
+
+    <color name="alpha_white_91">#E8FFFFFF</color>
+
+
+    <color name="orange_for_qr_send">#FF4500</color>
+    <color name="border_white_qr_send_cancel">#E6E6E6</color>
+
+    <!-- Primary and Secondary Colors -->
+    <color name="colorPrimary">#FFFFFF</color>
+    <color name="colorPrimaryVariant">#FFCDD2</color> <!-- Pembe tonları -->
+    <color name="colorSecondary">#F8BBD0</color> <!-- Hafif pembe -->
+
+    <!-- Text Colors -->
+    <color name="textColorPrimary">#000000</color> <!-- Siyah yazı -->
+    <color name="textColorSecondary">#757575</color> <!-- Daha açık gri yazı -->
+
+    <!-- Background Colors -->
+    <color name="surfaceColor">#FFFFFF</color>
+
+    <!-- Other Colors -->
+    <color name="errorColor">#B00020</color>
+
+
+
+</resources>
