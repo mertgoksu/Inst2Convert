@@ -1,3 +1,5 @@
+import org.apache.tools.ant.util.JavaEnvUtils.VERSION_1_8
+
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.jetbrains.kotlin.android)
@@ -6,6 +8,7 @@ plugins {
     id ("kotlin-kapt")
     id ("kotlin-parcelize")
     id ("androidx.navigation.safeargs.kotlin")
+    id("com.chaquo.python")
 }
 
 android {
@@ -20,6 +23,17 @@ android {
         versionName = "1.0"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+
+        ndk {
+            // On Apple silicon, you can omit x86_64.
+            abiFilters += listOf("arm64-v8a", "x86_64")
+        }
+    }
+
+    flavorDimensions += "pyVersion"
+    productFlavors {
+        create("py310") { dimension = "pyVersion" }
+        create("py311") { dimension = "pyVersion" }
     }
 
     buildTypes {
@@ -41,7 +55,22 @@ android {
     buildFeatures{
         viewBinding = true
     }
+
 }
+
+chaquopy {
+    productFlavors {
+        getByName("py310") { version = "3.10" }
+        getByName("py311") { version = "3.11" }
+    }
+    defaultConfig{
+        pip {
+            install( "Flask")
+            install( "pytube")
+        }
+    }
+}
+
 
 dependencies {
 

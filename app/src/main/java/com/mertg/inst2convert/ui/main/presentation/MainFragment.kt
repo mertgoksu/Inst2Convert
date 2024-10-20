@@ -6,6 +6,7 @@ import android.content.Context
 import android.content.Intent
 import android.net.Uri
 import android.os.Environment
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -13,13 +14,21 @@ import android.widget.Toast
 import com.mertg.inst2convert.R
 import com.mertg.inst2convert.base.BaseFragment
 import com.mertg.inst2convert.databinding.FragmentMainBinding
+import com.mertg.inst2convert.service.DownloadResponse
+import com.mertg.inst2convert.service.InstApiService
+import com.mertg.inst2convert.service.VideoDownloadRequest
 import com.mertg.inst2convert.ui.main.viewmodel.MainViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import okhttp3.Call
 import okhttp3.OkHttpClient
 import okhttp3.Request
 import org.chromium.base.ThreadUtils.runOnUiThread
+import retrofit2.Retrofit
+import retrofit2.converter.gson.GsonConverterFactory
 import java.io.IOException
+import retrofit2.Callback
+import retrofit2.Response
+
 
 @AndroidEntryPoint
 class MainFragment : BaseFragment<FragmentMainBinding, MainViewModel>(R.layout.fragment_main) {
@@ -47,23 +56,44 @@ class MainFragment : BaseFragment<FragmentMainBinding, MainViewModel>(R.layout.f
         }
 
         binding.convertButton.setOnClickListener {
-            val url = binding.urlInput.text.toString()
-            if (url.isNotEmpty()) {
-                viewProgress()
-                disableButtons()
+            val youtubeUrl = binding.urlInput.text.toString()
 
-                viewModel.convertUrl(url)
+            if (youtubeUrl.isNotEmpty()) {
+                disableButtons() // Disables the buttons while the request is in progress
+                viewProgress() // Shows a loading spinner or progress bar
 
-                viewModel.videoUrl.observe(viewLifecycleOwner) { videoUrl ->
-                    goneProgress()
-                    enableButtons()
-                    videoUrl?.let { showPopup(it) }
-                }
+
+                val videoRequest = VideoDownloadRequest(youtubeUrl)
+
+                RetrofitClient.instance.downloadVideo("720p", videoRequest).enqueue(object : Callback<DownloadResponse> {
+                    override fun onResponse(
+                        call: retrofit2.Call<DownloadResponse>,
+                        response: Response<DownloadResponse>
+                    )
+                    {
+                    if (response.isSuccessful) {
+                            response.body()?.let {
+                                Toast.makeText(context, "Download started: ${it.message}", Toast.LENGTH_LONG).show()
+                                Log.d("Mertos","succes")
+                            }
+                        } else {
+                            Toast.makeText(context, "Failed to download video", Toast.LENGTH_LONG).show()
+                            Log.d("Mertos","else")
+
+                        }
+                    }
+
+                    override fun onFailure(call: retrofit2.Call<DownloadResponse>, t: Throwable) {
+                        Toast.makeText(context, "Error: ${t.message}", Toast.LENGTH_LONG).show()
+                        Log.d("Mertos","onfail  ${t.message}")
+                    }
+                })
+
             } else {
-                Toast.makeText(context, "Please enter an URL", Toast.LENGTH_SHORT).show()
-                viewModel.setError("Please enter an URL")
+                Toast.makeText(context, "Please enter a valid URL", Toast.LENGTH_SHORT).show()
             }
         }
+
 
 
         binding.clearButton.setOnClickListener {
@@ -72,6 +102,20 @@ class MainFragment : BaseFragment<FragmentMainBinding, MainViewModel>(R.layout.f
 
         observeViewModel()
     }
+
+
+    object RetrofitClient {
+        private const val BASE_URL = "http://176.220.113.16:5000" // Use Flask server IP
+
+        val instance: InstApiService by lazy {
+            val retrofit = Retrofit.Builder()
+                .baseUrl(BASE_URL)
+                .addConverterFactory(GsonConverterFactory.create())
+                .build()
+            retrofit.create(InstApiService::class.java)
+        }
+    }
+
 
     private fun initButtons(){
         binding.convertButton.quickBaseButtonBlack().setTextValue("Convert")
@@ -120,6 +164,7 @@ class MainFragment : BaseFragment<FragmentMainBinding, MainViewModel>(R.layout.f
         binding.progressText.visibility = View.GONE
         binding.blurLayout.visibility = View.GONE
     }
+
 
     private fun wakeServer() {
         val url = "https://charm-chemical-banjo.glitch.me/"

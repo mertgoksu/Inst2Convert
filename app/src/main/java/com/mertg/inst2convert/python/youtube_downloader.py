@@ -40,15 +40,15 @@ def is_valid_youtube_url(url):
 def download_by_resolution(resolution):
     data = request.get_json()
     url = data.get('url')
-    
+
     if not url:
         return jsonify({"error": "Missing 'url' parameter in the request body."}), 400
 
     if not is_valid_youtube_url(url):
         return jsonify({"error": "Invalid YouTube URL."}), 400
-    
+
     success, error_message = download_video(url, resolution)
-    
+
     if success:
         return jsonify({"message": f"Video with resolution {resolution} downloaded successfully."}), 200
     else:
@@ -58,19 +58,21 @@ def download_by_resolution(resolution):
 def video_info():
     data = request.get_json()
     url = data.get('url')
-    
+
     if not url:
         return jsonify({"error": "Missing 'url' parameter in the request body."}), 400
 
     if not is_valid_youtube_url(url):
         return jsonify({"error": "Invalid YouTube URL."}), 400
-    
+
     video_info, error_message = get_video_info(url)
-    
+
     if video_info:
         return jsonify(video_info), 200
     else:
         return jsonify({"error": error_message}), 500
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run(debug=True, host="0.0.0.0", port=8080)
+
+
